@@ -15,19 +15,22 @@ public abstract class Plant {
     public ArrayList<String> emojiList;
     public boolean collectAuthorized = false;
 
+    public boolean isGrowing = false; // Pour éviter le spam clic
+
     public void growthDuration(Button land) {
-            if (!collectAuthorized) {
-                land.setText(emojiList.get(0));
-                Timeline timeline = new Timeline(
-                        new KeyFrame(Duration.seconds(durations.get(0)), e -> land.setText(emojiList.get(1))),
-                        new KeyFrame(Duration.seconds(durations.get(1)), e -> land.setText(emojiList.get(2)))
-                );
+        if (!collectAuthorized && !isGrowing) {
+            isGrowing = true;
+            land.setText(emojiList.get(0));
 
-                timeline.setOnFinished(e -> {
-                    this.collectAuthorized = true;
-                });
-
-                timeline.play();
-            }
-    };
+            Timeline timeline = new Timeline(
+                    new KeyFrame(Duration.seconds(durations.get(0)), e -> land.setText(emojiList.get(1))),
+                    new KeyFrame(Duration.seconds(durations.get(1)), e -> {
+                        land.setText(emojiList.get(2));
+                        this.collectAuthorized = true; // Prêt !
+                        this.isGrowing = false;
+                    })
+            );
+            timeline.play();
+        }
+    }
 }

@@ -25,26 +25,35 @@ public class Land {
         addPlant();
     }
 
-    public void addPlant () {
+    public void addPlant() {
         land.setOnAction(e -> {
-             if (typePlant.equals("Patate")) {
-                this.plant = new Patate();
+            // Si aucune plante n'est en cours de pousse ou prête à être récoltée
+            if (this.plant == null || (!this.plant.isGrowing && !this.plant.collectAuthorized)) {
+
+                // On récupère le type sélectionné au moment du CLIC
+                String currentType = LandFarm.selectedPlantType;
+
+                if (currentType.equals("Patate")) {
+                    this.plant = new Patate();
+                } else {
+                    this.plant = new Mais();
+                }
+
+                this.plant.growthDuration(this.land);
             }
-
-            if (typePlant.equals("Maïs")) {
-                this.plant = new Mais();
-            }
-
-            System.out.println(plant.name);
-            System.out.println(this.plant.collectAuthorized);
-
-            if (this.plant.collectAuthorized) {
+            // Si la plante est prête à être récoltée
+            else if (this.plant.collectAuthorized) {
                 Stocks.instance.add(this.plant.name, 1);
                 land.setText("🆕");
-                System.out.println(Stocks.stocks);
                 this.plant.collectAuthorized = false;
-            } else {
-                this.plant.growthDuration(this.land);
+                this.plant = null; // On réinitialise la case
+
+                // on demande à LandFarm de rafraîchir les boutons
+                if (LandFarm.instance != null) {
+                    LandFarm.instance.generatePlantsList();
+                }
+
+                System.out.println("Récolte effectuée ! Nouveau stock : " + Stocks.stocks);
             }
         });
     }

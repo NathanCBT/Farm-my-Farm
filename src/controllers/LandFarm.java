@@ -12,7 +12,11 @@ public class LandFarm {
     public GridPane gridlands;
     public GridPane gridplantslist;
 
+    // Permet d'accéder à l'interface depuis Land, pour mettre a jour le stock affiché sur le bouton
+    public static LandFarm instance;
+
     public void initialize() {
+        instance = this; // enregistre l'instance actuelle
         generateLands();
         generatePlantsList();
     }
@@ -34,14 +38,19 @@ public class LandFarm {
         }
     }
 
+    // Crée une variable statique pour que Land puisse y accéder
+    public static String selectedPlantType = "Maïs";
+
     public void generatePlantsList() {
+        gridplantslist.getChildren().clear(); // On vide la liste avant de la recréer
         int count = 0;
         for (String plantName : Stocks.stocks.keySet()) {
             int qty = Stocks.stocks.get(plantName);
-            Button btn = new Button(plantName + " " + qty); // texte du bouton = nom de la plante
+            Button btn = new Button(plantName + " (" + qty + ")");
 
             btn.setOnAction(e -> {
-                System.out.println("selectionner");
+                selectedPlantType = plantName; // On change la plante sélectionnée globalement
+                System.out.println("Plante sélectionnée : " + selectedPlantType);
             });
 
             gridplantslist.add(btn, 0, count);
