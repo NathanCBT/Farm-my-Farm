@@ -2,8 +2,12 @@
 
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
 
-<Pane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/25" fx:controller="controllers.LandFarm">
-        <GridPane fx:id="gridlands" layoutX="70.0" layoutY="74.0" prefHeight="631.0" prefWidth="868.0" xmlns:fx="http://javafx.com/fxml/1" />
-        <GridPane fx:id="gridplantslist" layoutY="721.0" prefHeight="179.0" prefWidth="1000" xmlns:fx="http://javafx.com/fxml/1" />
+<Pane xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LandFarm">
+        <Button text="Aller au Marché" layoutX="20.0" layoutY="20.0" onAction="#goToMarket" prefHeight="40.0" prefWidth="150.0" />
+        <GridPane fx:id="gridlands" layoutX="70.0" layoutY="74.0" prefHeight="631.0" prefWidth="868.0" />
+        <Label fx:id="lblStatus" layoutX="200.0" layoutY="30.0" text="" />
+        <GridPane fx:id="gridplantslist" layoutY="721.0" prefHeight="179.0" prefWidth="1000" />
 </Pane>

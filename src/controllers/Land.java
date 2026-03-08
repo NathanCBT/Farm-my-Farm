@@ -27,20 +27,26 @@ public class Land {
 
     public void addPlant() {
         land.setOnAction(e -> {
-            // Si aucune plante n'est en cours de pousse ou prête à être récoltée
             if (this.plant == null || (!this.plant.isGrowing && !this.plant.collectAuthorized)) {
 
-                // On récupère le type sélectionné au moment du CLIC
-                String currentType = LandFarm.selectedPlantType;
+                // SÉCURITÉ : Si l'utilisateur n'a rien choisi en bas, on arrête tout
+                if (LandFarm.selectedPlantType == null) {
+                    LandFarm.statusLabel.setText("Sélectionnez une plante d'abord !");
+                    return; // On sort de la fonction immédiatement
+                }
 
-                if (currentType.equals("Patate")) {
+                // Si on est ici, c'est que selectedPlantType n'est pas null
+                if (LandFarm.selectedPlantType.equals("Patate")) {
                     this.plant = new Patate();
-                } else {
+                } else if (LandFarm.selectedPlantType.equals("Maïs")) {
                     this.plant = new Mais();
                 }
 
+                // On lance la croissance
                 this.plant.growthDuration(this.land);
+                System.out.println(this.plant.name + " planté !");
             }
+
             // Si la plante est prête à être récoltée
             else if (this.plant.collectAuthorized) {
                 Stocks.instance.add(this.plant.name, 1);

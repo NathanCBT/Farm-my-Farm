@@ -1,9 +1,17 @@
 package controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+import javafx.event.ActionEvent;
+import java.io.IOException;
 
 public class LandFarm {
     @FXML
@@ -12,11 +20,25 @@ public class LandFarm {
     public GridPane gridlands;
     public GridPane gridplantslist;
 
+    @FXML
+    private Label lblStatus;
+    public static Label statusLabel;
+
+    // aller sur la page du marché
+    @FXML
+    public void goToMarket(ActionEvent event) throws IOException {
+        Parent marketView = FXMLLoader.load(getClass().getResource("/fxml/market.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(marketView));
+        stage.show();
+    }
+
     // Permet d'accéder à l'interface depuis Land, pour mettre a jour le stock affiché sur le bouton
     public static LandFarm instance;
 
     public void initialize() {
         instance = this; // enregistre l'instance actuelle
+        statusLabel = lblStatus;
         generateLands();
         generatePlantsList();
     }
@@ -39,7 +61,7 @@ public class LandFarm {
     }
 
     // Crée une variable statique pour que Land puisse y accéder
-    public static String selectedPlantType = "Maïs";
+    public static String selectedPlantType = null;
 
     public void generatePlantsList() {
         gridplantslist.getChildren().clear(); // On vide la liste avant de la recréer
