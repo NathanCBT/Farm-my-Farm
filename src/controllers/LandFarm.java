@@ -1,5 +1,6 @@
 package controllers;
 
+import Plants.Plant;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -36,24 +37,40 @@ public class LandFarm {
     // Permet d'accéder à l'interface depuis Land, pour mettre a jour le stock affiché sur le bouton
     public static LandFarm instance;
 
+
+    public static boolean[][] ownedLands = new boolean[20][20];
+    private static boolean isFirstLaunch = true;
+
     public void initialize() {
         instance = this; // enregistre l'instance actuelle
         statusLabel = lblStatus;
+        if (isFirstLaunch) {
+            for (int row = 0; row < 20; row++) {
+                for (int col = 0; col < 3; col++) {
+                    ownedLands[row][col] = true; // On débloque les 3 premières colonnes
+                }
+            }
+            isFirstLaunch = false;
+        }
         generateLands();
         generatePlantsList();
     }
 
+    // Tableau pour stocker l'état des plantes (20x20)
+    public static Plant[][] plantedSeeds = new Plant[20][20];
+
     public void generateLands() {
+        gridlands.getChildren().clear();
         int rows = 20;
         int columns = 20;
 
-        for (int row = 0; row < rows; row++) {
-            for (int col = 0; col < columns; col++) {
-                Land land = new Land("Maïs");
+        for (int row = 0; row < 20; row++) {
+            for (int col = 0; col < 20; col++) {
+                // la zone de départ les 3 premières colonnes sont ouvertes pour farmer
+                // toutes les cases où col < 3 seront gratuites (isOwned = true)
+                boolean freeAtStart = (col < 3);
 
-                gridlands.setHalignment(land.getButton(), javafx.geometry.HPos.CENTER);
-                gridlands.setValignment(land.getButton(), javafx.geometry.VPos.CENTER);
-                gridlands.setAlignment(Pos.CENTER);
+                Land land = new Land(row, col);
 
                 gridlands.add(land.getButton(), col, row);
             }
