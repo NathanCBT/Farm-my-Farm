@@ -1,0 +1,8 @@
+{
+  "money": 200.0,
+  "seeds": {"Maïs":2,"Patate":5},
+  "harvests": {"Maïs":0,"Patate":0},
+  "animals": {"Vache":0,"Poule":0},
+  "animalProducts": {"Lait":0,"Oeuf":0},
+  "land": []
+}

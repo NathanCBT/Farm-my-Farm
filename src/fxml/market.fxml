@@ -3,16 +3,34 @@
 <?import javafx.scene.control.*?>
 
 <VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Market">
-    <Label fx:id="lblMoney" text="Monnaie : 0 €" style="-fx-font-size: 18px; -fx-text-fill: green;" />
 
-    <Label text="LE MARCHÉ" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+    <Label fx:id="lblMoney" text="Argent : 0€" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+    <Label fx:id="lblMessage" text="Bienvenue au marché !" />
 
-    <HBox alignment="CENTER" spacing="20.0">
-        <Button text="Vendre toutes les Patates (100€)" onAction="#sellPatates" />
-        <Button text="Vendre tout le Maïs (300€)" onAction="#sellMais" />
+    <HBox alignment="CENTER" spacing="15.0">
+        <Button text="Vendre Patates" onAction="#sellPatates" />
+        <Button text="Vendre Maïs" onAction="#sellMais" />
     </HBox>
 
-    <Label fx:id="lblMessage" text="Bienvenue ! Que voulez-vous vendre ?" />
+    <HBox alignment="CENTER" spacing="15.0">
+        <Button text="Acheter Graine de Patate" onAction="#buyPatateSeed" />
+        <Button text="Acheter Graine de Maïs" onAction="#buyMaisSeed" />
+    </HBox>
 
-    <Button text="Retour à la Ferme" onAction="#goToFarm" style="-fx-background-color: #ddd;" />
+    <Label text="ANIMAUX" style="-fx-font-weight: bold;" />
+    <HBox spacing="10" alignment="CENTER">
+        <VBox spacing="5" alignment="CENTER">
+            <Label text="Poules" />
+            <Button text="Acheter (200€)" onAction="#buyChicken" />
+            <Button text="Vendre des oeufs" onAction="#sellEggs" />
+        </VBox>
+        <VBox spacing="5" alignment="CENTER">
+            <Label text="Vaches" />
+            <Button text="Acheter (400€)" onAction="#buyCow" />
+            <Button text="Vendre du lait" onAction="#sellMilks" />
+        </VBox>
+    </HBox>
+
+    <Button text="Retour à la Ferme" onAction="#goToFarm" />
+
 </VBox>

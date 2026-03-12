@@ -1,13 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
 
-<Pane xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LandFarm">
-        <Button text="Aller au Marché" layoutX="20.0" layoutY="20.0" onAction="#goToMarket" prefHeight="40.0" prefWidth="150.0" />
-        <GridPane fx:id="gridlands" layoutX="70.0" layoutY="74.0" prefHeight="631.0" prefWidth="868.0" />
-        <Label fx:id="lblStatus" layoutX="200.0" layoutY="30.0" text="" />
-        <GridPane fx:id="gridplantslist" layoutY="721.0" prefHeight="179.0" prefWidth="1000" />
-</Pane>
+<BorderPane prefHeight="900.0" prefWidth="1300.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LandFarm">
+
+        <left>
+                <VBox spacing="15" prefWidth="250.0" style="-fx-background-color: #f4f4f4; -fx-border-color: #cccccc; -fx-border-width: 0 1 0 0;">
+                        <padding>
+                                <Insets top="20" right="15" bottom="20" left="15" />
+                        </padding>
+
+                        <Label text="FARM MY FARM" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+                        <Separator />
+
+                        <Label fx:id="lblMoney" text="💰 Argent: 0€" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2e7d32;" />
+
+                        <Separator />
+
+                        <Label text="🌾 Récoltes" style="-fx-font-weight: bold;" />
+                        <VBox spacing="5" style="-fx-padding: 0 0 0 10;">
+                                <Label fx:id="lblPotato" text="🥔 Patates: 0" />
+                                <Label fx:id="lblMaize" text="🌽 Maïs: 0" />
+                        </VBox>
+
+                        <Separator />
+
+                        <Label text="📦 Produits" style="-fx-font-weight: bold;" />
+                        <VBox spacing="5" style="-fx-padding: 0 0 0 10;">
+                                <Label fx:id="lblEggs" text="🥚 Œufs: 0" />
+                                <Label fx:id="lblMilk" text="🥛 Lait: 0" />
+                        </VBox>
+
+                        <Region VBox.vgrow="ALWAYS" /> <Button onAction="#handleSave" maxWidth="Infinity" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold;" text="💾 SAUVEGARDER" />
+                        <Button onAction="#goToMarket" maxWidth="Infinity" text="🛒 ALLER AU MARCHÉ" />
+                </VBox>
+        </left>
+
+        <center>
+                <VBox spacing="10">
+                        <padding>
+                                <Insets top="10" right="10" bottom="10" left="10" />
+                        </padding>
+                        <Label fx:id="lblStatus" style="-fx-font-style: italic;" text="" />
+
+                        <ScrollPane fitToWidth="true" fitToHeight="true" style="-fx-background-color: transparent;">
+                                <GridPane fx:id="gridlands" hgap="2" vgap="2" />
+                        </ScrollPane>
+                </VBox>
+        </center>
+
+        <bottom>
+                <HBox spacing="20" prefHeight="150.0" style="-fx-background-color: #eeeeee; -fx-padding: 10;">
+                        <VBox spacing="5">
+                                <Label text="Graines à planter :" style="-fx-font-weight: bold;" />
+                                <GridPane fx:id="gridplantslist" />
+                        </VBox>
+                        <Separator orientation="VERTICAL" />
+                        <VBox spacing="5">
+                                <Label text="Animaux à placer :" style="-fx-font-weight: bold;" />
+                                <GridPane fx:id="gridAnimalsList" />
+                        </VBox>
+                </HBox>
+        </bottom>
+
+</BorderPane>
